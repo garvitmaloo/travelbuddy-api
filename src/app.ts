@@ -7,6 +7,7 @@ import type { Request, Response, NextFunction } from "express";
 
 import { logger } from "./utils/logger";
 import { handleErrors } from "./middleware/handleErrors";
+import sequelize from "./config/db";
 
 const app = express();
 config();
@@ -28,6 +29,13 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   handleErrors(error, req, res, next);
 });
 
-app.listen(port, () => {
-  logger.info(`Server started on port ${port}`);
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    app.listen(port, () => {
+      logger.info(`Connected to DB and server started on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    logger.error(`Failed to connect to DB: ${err}`);
+  });
