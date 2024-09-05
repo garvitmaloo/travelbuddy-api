@@ -24,7 +24,7 @@ const port = process.env.PORT ?? 9000;
 
 // APP ROUTES
 app.get("/api/test", (req, res) => {
-  res.send("TEST SUCCESSFUL!");
+  res.send("ROUTE TESTED SUCCESSFULLY!");
 });
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
