@@ -1,0 +1,42 @@
+name: Deploy Node JS application on EC2
+
+on:
+  push:
+    branches:
+      - main
+      - feat/staging-build
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout actions
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build the docker image
+        run: docker build --platform=linux/amd64 -t garvitmaloo21/travelbuddy-api:latest .
+
+      - name: Push image to docker hub
+        run: docker push garvitmaloo21/travelbuddy-api:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull docker image
+        run: docker pull garvitmaloo21/travelbuddy-api:latest
+
+      - name: Remove existing containers, if any
+        run: |
+          if [$(docker ps -q | wc -l) -gt 0]; then 
+            echo "Stopping and removing existing container"
+            docker stop travelbuddy-api && docker rm -f travelbuddy-api
+          else
+            echo "No running containers found"
+          fi
+
+      - name: Start a new container
+        run: docker run --name travelbuddy-api -d -p 9000:9000 garvitmaloo21/travelbuddy-api:latest
