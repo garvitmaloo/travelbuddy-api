@@ -7,7 +7,6 @@ import type { Request, Response, NextFunction } from "express";
 
 import { logger } from "./utils/logger";
 import { handleErrors } from "./middleware/handleErrors";
-import sequelize from "./config/db";
 
 const app = express();
 config();
@@ -24,18 +23,14 @@ app.use(morgan("tiny"));
 const port = process.env.PORT ?? 9000;
 
 // APP ROUTES
+app.get("/api/test", (req, res) => {
+  res.send("TEST SUCCESSFUL!");
+});
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   handleErrors(error, req, res, next);
 });
 
-sequelize
-  .authenticate()
-  .then(() => {
-    app.listen(port, () => {
-      logger.info(`Connected to DB and server started on port ${port}`);
-    });
-  })
-  .catch((err) => {
-    logger.error(`Failed to connect to DB: ${err}`);
-  });
+app.listen(port, () => {
+  logger.info(`Server started on port ${port}`);
+});
