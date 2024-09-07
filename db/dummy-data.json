@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Jaipur",
+    "description": "Jaipur, the Pink City, is famous for its historic forts, palaces, and vibrant culture. Highlights include the Amber Fort, Hawa Mahal, and the City Palace.",
+    "image_url": "https://static.toiimg.com/photo/107164723.cms"
+  },
+  {
+    "name": "Goa",
+    "description": "Goa is renowned for its pristine beaches, vibrant nightlife, and rich Portuguese heritage. Popular spots include Baga Beach, Calangute, and the Dudhsagar Waterfalls.",
+    "image_url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/fc/f0/goa.jpg?w=1400&h=1400&s=1"
+  },
+  {
+    "name": "Kerala Backwaters",
+    "description": "The Kerala Backwaters offer serene houseboat cruises through a network of lagoons and lakes, surrounded by lush greenery and traditional villages.",
+    "image_url": "https://www.authenticindiatours.com/app/uploads/2022/05/10-reasons-to-visit-Kerala-Kumarakom-Back-Waters-Boat-House-1400x550-c-default.jpg"
+  },
+  {
+    "name": "Varanasi",
+    "description": "Varanasi, one of the world's oldest cities, is a spiritual hub on the banks of the Ganges River. Pilgrims visit to take holy dips and witness the mesmerizing Ganga Aarti.",
+    "image_url": "https://www.agoda.com/wp-content/uploads/2024/06/ancient-Varanasi-city-architecture-featured-1244x700.jpg"
+  },
+  {
+    "name": "Leh-Ladakh",
+    "description": "Leh-Ladakh is a high-altitude region known for its dramatic landscapes, Buddhist monasteries, and adventurous activities like trekking and motorbiking.",
+    "image_url": "https://oc.kosha.co/journal/wp-content/uploads/2021/11/Experience-Leh-in-Winter.jpg"
+  },
+  {
+    "name": "Andaman Islands",
+    "description": "The Andaman Islands are an exotic archipelago with crystal-clear waters, pristine beaches, and coral reefs, making it a paradise for divers and nature lovers.",
+    "image_url": "https://miro.medium.com/v2/resize:fit:1024/0*YwK8LJh8arGc9yOg.jpg"
+  },
+  {
+    "name": "Udaipur",
+    "description": "Udaipur, often called the 'City of Lakes,' is known for its picturesque lakes, royal palaces, and vibrant culture. The Lake Palace and City Palace are key attractions.",
+    "image_url": "https://media.tacdn.com/media/attractions-content--1x-1/10/7e/09/64.jpg"
+  },
+  {
+    "name": "Shimla",
+    "description": "Shimla is a popular hill station known for its colonial architecture, cool climate, and scenic beauty. The Mall Road and Jakhoo Temple are major attractions.",
+    "image_url": "https://www.agoda.com/wp-content/uploads/2024/03/Featured-image-Shimla-India.jpg"
+  }
+]

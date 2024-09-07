@@ -32,8 +32,5 @@ jobs:
       - name: Remove existing container
         run: docker stop travelbuddy-api && docker rm -f travelbuddy-api
 
-      - name: Wait for containers to be stopped
-        run: sleep 60
-
       - name: Start a new container
         run: docker run --name travelbuddy-api -d -p 9000:9000 garvitmaloo21/travelbuddy-api:latest

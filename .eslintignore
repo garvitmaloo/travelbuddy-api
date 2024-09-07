@@ -1,1 +1,3 @@
 .eslintrc.js
+db/dummy-data.json
+db/seed-db.js
