@@ -8,6 +8,7 @@ import type { Request, Response, NextFunction } from "express";
 import { logger } from "./utils/logger";
 import { handleErrors } from "./middleware/handleErrors";
 import sequelize from "./config/db";
+import { destinationRoutes } from "./routes";
 
 const app = express();
 config();
@@ -24,9 +25,11 @@ app.use(morgan("tiny"));
 const port = process.env.PORT ?? 9000;
 
 // APP ROUTES
-app.get("/api/test", (req, res) => {
-  res.send("ROUTE TESTED SUCCESSFULLY!");
+app.get("/", (req, res) => {
+  return res.send("You are at home page...");
 });
+
+app.use("/api/destinations", destinationRoutes);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   handleErrors(error, req, res, next);
