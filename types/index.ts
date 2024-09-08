@@ -5,3 +5,5 @@ export interface IStandardResponse<T> {
   } | null;
   result: T | null;
 }
+
+export * from "./dto.types";
