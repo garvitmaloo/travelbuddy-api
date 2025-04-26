@@ -1,16 +1,23 @@
-const { Sequelize } = require("@sequelize/core");
-const { PostgresDialect } = require("@sequelize/postgres");
+const { Sequelize } = require("sequelize");
 const { config } = require("dotenv");
 
 const DUMMY_DATA = require("./dummy-data.json");
 
 config({ path: "../.env.local" });
 
-const { DB_USER, DB_PORT, DB_PASSWORD, DB_NAME } = process.env;
+const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
+if (
+  DB_HOST === undefined ||
+  DB_NAME === undefined ||
+  DB_USER === undefined ||
+  DB_PASSWORD === undefined
+) {
+  throw new Error("Missing environment variables");
+}
 
-const sequelize = new Sequelize({
-  dialect: PostgresDialect,
-  url: `postgres://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  dialect: "mysql"
 });
 
 const initiateSeeding = async function () {
@@ -19,13 +26,13 @@ const initiateSeeding = async function () {
 
     // Create table
     await sequelize.query(
-      "CREATE TABLE IF NOT EXISTS travel_destinations (id SERIAL PRIMARY KEY, name VARCHAR(100) UNIQUE, description VARCHAR(255), image_url VARCHAR(255))"
+      "CREATE TABLE IF NOT EXISTS travel_destinations (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100) UNIQUE, description VARCHAR(255), image_url VARCHAR(255))"
     );
 
     // Insert data in the table
     for (const item of DUMMY_DATA) {
       await sequelize.query(
-        "INSERT INTO travel_destinations (name, description, image_url) VALUES (:name, :description, :image_url) ON CONFLICT (name) DO NOTHING",
+        "INSERT INTO travel_destinations (name, description, image_url) VALUES (:name, :description, :image_url)",
         {
           replacements: {
             name: item.name,
@@ -39,7 +46,7 @@ const initiateSeeding = async function () {
     console.log("Database seeded.");
     await sequelize.close();
   } catch (err) {
-    console.error("Something went wrong while seeding the DB.");
+    console.error("Something went wrong while seeding the DB.", err);
   }
 };
 
