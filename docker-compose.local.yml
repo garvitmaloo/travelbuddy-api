@@ -1,16 +1,16 @@
 version: "3.7"
 
 services:
-  postgres:
-    image: postgres:13
-    container_name: postgres_db
+  mysql:
+    image: mysql:8.4.5
+    container_name: mysql_db
     env_file:
       - .env.local
     volumes:
-      - postgres_db_data:/var/lib/postgresql/data
+      - mysql_db_data:/var/lib/mysql/data
     restart: always
     ports:
-      - "5432:5432"
+      - "3306:3306"
 
   backend:
     build:
@@ -26,8 +26,8 @@ services:
     ports:
       - "9000:9000"
     depends_on:
-      - postgres
+      - mysql
     command: npm run start
 
 volumes:
-  postgres_db_data:
+  mysql_db_data:

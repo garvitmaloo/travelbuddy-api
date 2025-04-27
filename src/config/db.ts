@@ -1,28 +1,21 @@
-import { Sequelize } from "@sequelize/core";
-import { PostgresDialect } from "@sequelize/postgres";
+import { Sequelize } from "sequelize";
 import { config } from "dotenv";
 
 config();
 
-const sequelize = new Sequelize({
-  dialect: PostgresDialect,
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  ssl:
-    process.env.NODE_ENV === "development"
-      ? false
-      : {
-          rejectUnauthorized: false
-        },
-  pool: {
-    min: 1,
-    max: 3,
-    idle: 10000,
-    acquire: 15000
-  }
+const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
+if (
+  DB_HOST === undefined ||
+  DB_NAME === undefined ||
+  DB_USER === undefined ||
+  DB_PASSWORD === undefined
+) {
+  throw new Error("Missing environment variables");
+}
+
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  dialect: "mysql"
 });
 
 export default sequelize;
